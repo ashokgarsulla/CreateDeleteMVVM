@@ -33,7 +33,6 @@
                   AutoGenerateColumns="False"
                   Grid.Row="1" 
                   ItemsSource="{Binding Path=Students}"
-                  SelectedItem = "{Binding SelectedStudent,Mode=TwoWay}"
                   ScrollViewer.CanContentScroll="True" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   Height="700"
