@@ -11,7 +11,6 @@ namespace MVVMHookingUpViews.ViewModel
 {
     public class StudentViewModel
     {
-        public MyICommand DeleteCommand { get; set; }
         public ICommand CreateCommand { get; set; }
 
         public ICommand RemoveCommand { get; set; }
@@ -27,9 +26,8 @@ namespace MVVMHookingUpViews.ViewModel
             students.Add(new StudentModel { FirstName = "Allen", LastName = "Brown" });
             students.Add(new StudentModel { FirstName = "Linda", LastName = "Hamerski" });
             LoadStudents();
-            DeleteCommand = new MyICommand(OnDelete, CanDelete);
-            CreateCommand = new DelegateCommand(CreateStudent);
-            RemoveCommand = new DelegateCommand(CanRemoveRow, RemoveRow);
+            CreateCommand = new MyICommand(CreateStudent);
+            RemoveCommand = new MyICommand(CanRemoveRow, RemoveRow);
      
         }
 
