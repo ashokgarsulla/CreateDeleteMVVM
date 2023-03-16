@@ -13,6 +13,10 @@ namespace MVVMHookingUpViews.ViewModel
         public readonly Action<object> execute;
         public DelegateCommand()
         { }
+        public DelegateCommand(Action<object> _execute)
+        {
+            execute = _execute;
+        }
         public DelegateCommand(Predicate<object> _canexecute, Action<object> _execute)
        : this()
         {

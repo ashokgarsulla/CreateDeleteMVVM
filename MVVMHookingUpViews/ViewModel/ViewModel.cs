@@ -12,7 +12,7 @@ namespace MVVMHookingUpViews.ViewModel
     public class StudentViewModel
     {
         public MyICommand DeleteCommand { get; set; }
-        public MyICommand CreateCommand { get; set; }
+        public ICommand CreateCommand { get; set; }
 
         public ICommand RemoveCommand { get; set; }
         public ObservableCollection<StudentModel> Students
@@ -28,7 +28,7 @@ namespace MVVMHookingUpViews.ViewModel
             students.Add(new StudentModel { FirstName = "Linda", LastName = "Hamerski" });
             LoadStudents();
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
-            CreateCommand = new MyICommand(CreateStudent);
+            CreateCommand = new DelegateCommand(CreateStudent);
             RemoveCommand = new DelegateCommand(CanRemoveRow, RemoveRow);
      
         }
@@ -39,7 +39,7 @@ namespace MVVMHookingUpViews.ViewModel
         }
 
         // Create Stuent with default First Name and Last name
-        public void CreateStudent()
+        public void CreateStudent(object parameter)
         {
             try
             {
