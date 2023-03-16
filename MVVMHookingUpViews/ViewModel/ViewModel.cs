@@ -14,6 +14,7 @@ namespace MVVMHookingUpViews.ViewModel
         public ICommand CreateCommand { get; set; }
 
         public ICommand RemoveCommand { get; set; }
+        private static int newStudentCount = 0;
         public ObservableCollection<StudentModel> Students
         {
             get;
@@ -41,7 +42,8 @@ namespace MVVMHookingUpViews.ViewModel
         {
             try
             {
-                students.Add(new StudentModel { FirstName = "NewFirst", LastName = "NewLast" });
+                newStudentCount++;
+                students.Add(new StudentModel { FirstName = "NewFirst "+ newStudentCount, LastName = "NewLast "+ newStudentCount });
                 LoadStudents();
             }
             catch (Exception ex)
