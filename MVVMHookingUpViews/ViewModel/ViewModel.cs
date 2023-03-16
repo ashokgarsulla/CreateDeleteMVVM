@@ -50,32 +50,6 @@ namespace MVVMHookingUpViews.ViewModel
             }
         }
 
-        private StudentModel _selectedStudent;
-
-        public StudentModel SelectedStudent
-        {
-            get
-            {
-                return _selectedStudent;
-            }
-
-            set
-            {
-                _selectedStudent = value;
-                DeleteCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private void OnDelete()
-        {
-            Students.Remove(SelectedStudent);
-        }
-
-        private bool CanDelete()
-        {
-            return SelectedStudent != null;
-        }
-
 // Code for delete individual Row
         private void RemoveRow(object parameter)
         {
