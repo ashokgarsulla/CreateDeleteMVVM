@@ -5,34 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVMHookingUpViews.Views"
              xmlns:viewModel="clr-namespace:MVVMHookingUpViews.ViewModel"
-             xmlns:data = "clr-namespace:MVVMHookingUpViews.Model"  
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1000">
-
-
-
     <UserControl.DataContext>
         <viewModel:StudentViewModel/>
     </UserControl.DataContext>
-
-    <!--Data Template-->
-    <!--<UserControl.Resources>
-        <DataTemplate DataType = "{x:Type data:StudentModel}">
-            <StackPanel Orientation = "Horizontal" Width="auto">
-                <TextBox Text = "{Binding Path = FirstName, Mode = TwoWay}" 
-            Width = "100" Margin = "10"/>
-                <TextBox Text = "{Binding Path = LastName, Mode = TwoWay}" 
-            Width = "100" Margin = "10"/>
-
-                <Button Content = "Delete" 
-            Command = "{Binding DeleteCommand}"
-            HorizontalAlignment = "Left" 
-            VerticalAlignment = "Center" 
-            Width = "75" Margin = "10" />
-            </StackPanel>
-        </DataTemplate>
-    </UserControl.Resources>-->
-
 
     <Grid>
         <Grid.ColumnDefinitions >
