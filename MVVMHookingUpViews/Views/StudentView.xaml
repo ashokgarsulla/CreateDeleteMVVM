@@ -28,19 +28,7 @@
                 Grid.Column="0" 
                 Margin="20,20,0,0"
                 Height="49"/>
-
-        <!--<StackPanel Orientation = "Horizontal"  Grid.Row="1" 
-                   Grid.Column="0">
-            <ListBox Name="listBox" ItemsSource = "{Binding Students}" 
-                 Height="680" ScrollViewer.VerticalScrollBarVisibility="Auto"
-            SelectedItem = "{Binding SelectedStudent}" Margin="0,0,0,2" >
-            </ListBox>
-            <Button Content = "Delete" 
-            Command = "{Binding DeleteCommand}"
-            HorizontalAlignment = "Left" 
-            VerticalAlignment = "Center" 
-            Width = "75" Margin = "10" />
-        </StackPanel>-->
+        
         <DataGrid Name="studentlist"
                   AutoGenerateColumns="False"
                   Grid.Row="1" 
