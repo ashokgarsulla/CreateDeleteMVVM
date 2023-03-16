@@ -7,17 +7,17 @@ using System.Windows.Input;
 
 namespace MVVMHookingUpViews.ViewModel
 {
-    class DelegateCommand : ICommand
+    class MyICommand : ICommand
     {
         public readonly Predicate<object> canExecute;
         public readonly Action<object> execute;
-        public DelegateCommand()
+        public MyICommand()
         { }
-        public DelegateCommand(Action<object> _execute)
+        public MyICommand(Action<object> _execute)
         {
             execute = _execute;
         }
-        public DelegateCommand(Predicate<object> _canexecute, Action<object> _execute)
+        public MyICommand(Predicate<object> _canexecute, Action<object> _execute)
        : this()
         {
             canExecute = _canexecute;
