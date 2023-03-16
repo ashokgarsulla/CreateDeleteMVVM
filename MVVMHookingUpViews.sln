@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMHookingUpViews", "MVVMHookingUpViews\MVVMHookingUpViews.csproj", "{D6514A32-2673-4BEC-B165-DB0422B1492E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6514A32-2673-4BEC-B165-DB0422B1492E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6514A32-2673-4BEC-B165-DB0422B1492E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6514A32-2673-4BEC-B165-DB0422B1492E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6514A32-2673-4BEC-B165-DB0422B1492E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD4DFDB8-44E3-4831-A5C0-B2945F86C1ED}
+	EndGlobalSection
+EndGlobal
