@@ -78,6 +78,7 @@
                     </DataGridColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+
                             <Button Content = "Delete" 
                                 HorizontalAlignment = "Center" 
                                 VerticalAlignment = "Center" 

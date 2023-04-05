@@ -24,10 +24,5 @@ namespace MVVMHookingUpViews.Views
         {
             InitializeComponent();
         }
-
-        private void DataGridTextColumn_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
-        {
-
-        }
     }
 }
