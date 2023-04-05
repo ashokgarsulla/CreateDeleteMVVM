@@ -22,14 +22,8 @@ namespace MVVMHookingUpViews.ViewModel
         private double currentPositionY;
         private int direction;
         private double degree;
-        public ICommand PreviewMouseMoveCommand { get; set; }
-        public ICommand LeftMouseButtonDownCommand { get; set; }
-        public ICommand LeftMouseButtonUpCommand { get; set; }
         public RightViewModel()
         {
-            PreviewMouseMoveCommand = new MyICommand(PreviewMouseMove);
-            LeftMouseButtonDownCommand = new MyICommand(LeftMouseButtonDown);
-            LeftMouseButtonUpCommand = new MyICommand(LeftMouseButtonUp);
 
         }
         private double x;
@@ -228,25 +222,6 @@ namespace MVVMHookingUpViews.ViewModel
                 currentPositionY = Y;
             }
         }
-        public void PreviewMouseMove(object parameter)
-        {
-            if (captured && X - 5.0 > 0)
-            {
-                RectX = X - 5.0 ;
-                RectY = Y - 5.0;
-            }
-        }
-        public void LeftMouseButtonDown(object parameter)
-        {
-            captured = true;
-            
-        }
-        public void LeftMouseButtonUp(object parameter)
-        {
-            captured = false;
-        }
-
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChange(string property)
         {

@@ -41,18 +41,6 @@
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
                 </behaviors:EventTrigger>
-                <!--<behaviors:eventtrigger eventname="previewmousedown">
-                    <behaviors:invokecommandaction command="{binding elementname=square, path=datacontext.leftmousebuttondowncommand}"
-                                commandparameter="{binding}"/>
-                </behaviors:eventtrigger>
-                <behaviors:eventtrigger eventname="previewmouseup">
-                    <behaviors:invokecommandaction command="{binding elementname=square, path=datacontext.leftmousebuttondownupcommand}"
-                                commandparameter="{binding}"/>
-                </behaviors:eventtrigger>
-                <behaviors:eventtrigger eventname="previewmousemove">
-                    <behaviors:invokecommandaction command="{binding elementname=square, path=datacontext.previewmousemovecommand}"
-                                commandparameter="{binding}"/>
-                </behaviors:eventtrigger>-->
             </behaviors:Interaction.Triggers>
             <Rectangle.RenderTransform>
                 <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
