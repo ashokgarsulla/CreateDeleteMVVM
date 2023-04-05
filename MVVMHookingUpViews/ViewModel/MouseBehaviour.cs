@@ -28,10 +28,22 @@ namespace MVVMHookingUpViews.ViewModel
             AssociatedObject.MouseMove += MouseMovePosition;
         }
         private void MouseMovePosition(object sender, MouseEventArgs e)
-        {      
-            Point pos = e.GetPosition(AssociatedObject);
+        {
+            //e.Handled = true;
+            Canvas cv = (Canvas)sender;
+            Point pos = e.GetPosition(cv);
             MouseX = pos.X;
-            MouseY = pos.Y;    
+            MouseY = pos.Y;
+            if(e.RightButton == MouseButtonState.Pressed)
+            {
+               Point B = e.GetPosition(cv);
+               cv.CaptureMouse();
+            }
+            else if(e.RightButton == MouseButtonState.Released)
+            {
+                cv.ReleaseMouseCapture();
+            }
+            
         }
         protected override void OnDetaching()
         {

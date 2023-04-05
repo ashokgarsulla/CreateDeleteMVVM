@@ -175,7 +175,7 @@ namespace MVVMHookingUpViews.ViewModel
         public void ZoomInOutByWheel(object sender, MouseWheelEventArgs e)
         {
             
-            if (e.Delta > 0 && Scale < 700)
+            if (e.Delta > 0 && Scale < 200)
             {
                 Scale += 10;
             }
@@ -210,25 +210,17 @@ namespace MVVMHookingUpViews.ViewModel
                 currentPositionY = Y;
                 if (direction == 1)
                 {
-                    if (degree < 360)
-                    {
                         CenterOfSquareX = Scale / 2;
                         CenterOfSquareY = Scale / 2;
                         degree += 2;
                         Angle = degree;
-                    }
-
                 }
                 if (direction == -1)
                 {
-                    if (degree > -360)
-                    {
                         CenterOfSquareX = Scale / 2;
                         CenterOfSquareY = Scale / 2;
                         degree -= 2;
                         Angle = degree;
-                    }
-
                 }
             }
             else
