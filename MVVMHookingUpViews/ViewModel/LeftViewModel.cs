@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MVVMHookingUpViews.Model;
+﻿
 using System.Windows.Input;
+using MVVMHookingUpViews.Model;
+using MVVMHookingUpViews.Commands;
+using System.Collections.ObjectModel;
 
 namespace MVVMHookingUpViews.ViewModel
 {
-    public class StudentViewModel
+    public class LeftViewModel
     {
         public ICommand CreateCommand { get; set; }
-
         public ICommand RemoveCommand { get; set; }
         private static int newStudentCount = 0;
         public ObservableCollection<StudentModel> Students
@@ -21,7 +17,8 @@ namespace MVVMHookingUpViews.ViewModel
             set;
         }
         public ObservableCollection<StudentModel> students = new ObservableCollection<StudentModel>();
-        public StudentViewModel()
+
+        public LeftViewModel()
         {
             students.Add(new StudentModel { FirstName = "Mark", LastName = "Allain" });
             students.Add(new StudentModel { FirstName = "Allen", LastName = "Brown" });
@@ -29,30 +26,18 @@ namespace MVVMHookingUpViews.ViewModel
             LoadStudents();
             CreateCommand = new MyICommand(CreateStudent);
             RemoveCommand = new MyICommand(CanRemoveRow, RemoveRow);
-     
         }
-
         public void LoadStudents()
         {
             Students = students;
         }
-
-        // Create Stuent with default First Name and Last name
         public void CreateStudent(object parameter)
         {
-            try
-            {
-                newStudentCount++;
-                students.Add(new StudentModel { FirstName = "NewFirst "+ newStudentCount, LastName = "NewLast "+ newStudentCount });
-                LoadStudents();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            newStudentCount++;
+            students.Add(new StudentModel { FirstName = "NewFirst " + newStudentCount, LastName = "NewLast " + newStudentCount });
+            LoadStudents();
         }
 
-// Code for delete individual Row
         private void RemoveRow(object parameter)
         {
             int index = Students.IndexOf(parameter as StudentModel);
@@ -61,6 +46,7 @@ namespace MVVMHookingUpViews.ViewModel
                 Students.RemoveAt(index);
             }
         }
+
         private bool CanRemoveRow(object parameter)
         {
             return true;

@@ -11,6 +11,7 @@ using MVVMHookingUpViews.Model;
 using System.Windows;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Numerics;
 
 
 
@@ -18,10 +19,10 @@ namespace MVVMHookingUpViews.ViewModel
 {
     public class RightViewModel : INotifyPropertyChanged
     {
-        private bool captured = false;
-        private double currentPositionY;
-        private int direction;
-        private double degree;
+        private int mouseClickedCount = 0;
+        private Vector2 clickedPosition;
+        private Vector2 mouseVector;
+        private double angleForSquareRotation;
         public RightViewModel()
         {
 
@@ -139,33 +140,6 @@ namespace MVVMHookingUpViews.ViewModel
             }
         }
 
-        private double originX;
-        public double OriginX
-        {
-            get
-            {
-                return originX;
-            }
-            set
-            {
-                originX = value;
-                OnPropertyChange("OriginX");
-            }
-        }
-
-        private double originY;
-        public double OriginY
-        {
-            get
-            {
-                return originY;
-            }
-            set
-            {
-                originY = value;
-                OnPropertyChange("OriginY");
-            }
-        }
         public void ZoomInOutByWheel(object sender, MouseWheelEventArgs e)
         {
             
@@ -183,43 +157,59 @@ namespace MVVMHookingUpViews.ViewModel
                 }
             }
         }
+
         public void MoveSquareWithMouse(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                if(X - Scale / 2 > 0)
+                bool isHMovable = X - Scale / 2 > 0 && X + Scale / 2 < 960;
+                bool isVMovable = Y + Scale / 2 < 1055 && Y - Scale / 2 > 0;
+
+                if (isHMovable && isVMovable)
                 {
                     RectX = X - Scale / 2;
                     RectY = Y - Scale / 2;
                 }
-                
+                if (!isHMovable)
+                {
+                    if(isVMovable)
+                    {
+                        RectY = Y - Scale / 2;
+                    }
+                }
+                if (!isVMovable)
+                {
+                    if (isHMovable)
+                    {
+                        RectX = X - Scale / 2;
+                    }
+                }
             }
         }
         public void RotateSquare(object sender, MouseEventArgs e)
         {
+            Vector2 currentPosition = new Vector2((float)X,(float)Y);
             if (e.RightButton == MouseButtonState.Pressed)
             {
-                double deltaDirection = currentPositionY - Y;
-                direction = deltaDirection > 0 ? 1 : -1;
-                currentPositionY = Y;
-                if (direction == 1)
+                if(mouseClickedCount == 0)
                 {
-                        CenterOfSquareX = Scale / 2;
-                        CenterOfSquareY = Scale / 2;
-                        degree += 2;
-                        Angle = degree;
+                    clickedPosition.X = (float)X;
+                    clickedPosition.Y = (float)Y;
+                    mouseClickedCount++;
                 }
-                if (direction == -1)
-                {
-                        CenterOfSquareX = Scale / 2;
-                        CenterOfSquareY = Scale / 2;
-                        degree -= 2;
-                        Angle = degree;
-                }
+                mouseVector = clickedPosition - currentPosition;
+                currentPosition.X = (float)X;
+                currentPosition.Y = (float)Y;
+                angleForSquareRotation = 1.5 * Vector2.Dot(mouseVector, Vector2.UnitY);
+                CenterOfSquareX = Scale / 2;
+                CenterOfSquareY = Scale / 2;
+                Angle = angleForSquareRotation;
             }
             else
             {
-                currentPositionY = Y;
+                currentPosition.X = (float)X;
+                currentPosition.Y = (float)Y;
+                mouseClickedCount = 0;
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -230,6 +220,5 @@ namespace MVVMHookingUpViews.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
-
     }
 }

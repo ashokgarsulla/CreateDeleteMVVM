@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace MVVMHookingUpViews.ViewModel
+namespace MVVMHookingUpViews.Commands
 {
     class MyICommand : ICommand
     {
@@ -29,11 +29,11 @@ namespace MVVMHookingUpViews.ViewModel
             {
                 return true;
             }
-                
+
             else
             {
                 return canExecute(parameter);
-            }         
+            }
         }
 
         public event EventHandler CanExecuteChanged;

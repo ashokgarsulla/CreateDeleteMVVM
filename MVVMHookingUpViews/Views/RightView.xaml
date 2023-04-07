@@ -12,44 +12,46 @@
     <UserControl.DataContext>
         <viewModel:RightViewModel/>
     </UserControl.DataContext>
-
-    <Canvas Name="canvas"  Background="GreenYellow">
+    
+    <Canvas Name="canvas"  Background="#F2F2F2">
         <behaviors:Interaction.Triggers>
             <behaviors:EventTrigger EventName="MouseMove">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="RotateSquare"/>
             </behaviors:EventTrigger>
+
             <behaviors:EventTrigger EventName="MouseWheel">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="ZoomInOutByWheel"/>
             </behaviors:EventTrigger>
         </behaviors:Interaction.Triggers>
-        
 
         <behaviors:Interaction.Behaviors>
             <viewModel:MouseBehaviour MouseX="{Binding X, Mode=OneWayToSource}" MouseY="{Binding Y, Mode=OneWayToSource}" />
         </behaviors:Interaction.Behaviors>
 
-
-
         <Rectangle Name="square" 
                 Width="{Binding Path=Scale,Mode=TwoWay}"
                 Height="{Binding Path=Scale,Mode=TwoWay}"
-                Fill="Blue"
-                Canvas.Left="{Binding RectX, Mode=TwoWay}"
-                Canvas.Top="{Binding RectY, Mode=TwoWay}"
+                Canvas.Left="{Binding Path=RectX, Mode=TwoWay}"
+                Canvas.Top="{Binding Path=RectY, Mode=TwoWay}"
                 >
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
-            <Rectangle.RenderTransform>
-                <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
-            </Rectangle.RenderTransform>
-        </Rectangle>
 
-        <Label Content="{Binding Path=X, Mode=OneWay}"></Label>
-        <Label Content="{Binding Path=Y, Mode=OneWay}" RenderTransformOrigin="2.438,0.385" Margin="20"></Label>
-        <Label Content="{Binding Path=RectX, Mode=OneWay}" Canvas.Left="10" Canvas.Top="116"/>
-        <Label Content="{Binding Path=RectY, Mode=OneWay}" Canvas.Left="34" Canvas.Top="116"/>
+            <Rectangle.LayoutTransform>
+                <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
+            </Rectangle.LayoutTransform>
+            
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="Yellow" Offset="0.0" />
+                    <GradientStop Color="Red" Offset="0.25" />
+                    <GradientStop Color="Blue" Offset="0.75" />
+                    <GradientStop Color="LimeGreen" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Canvas>
 </UserControl>

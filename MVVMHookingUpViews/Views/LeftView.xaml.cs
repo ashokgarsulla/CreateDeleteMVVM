@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MVVMHookingUpViews.Views
 {
     /// <summary>
-    /// Interaction logic for StudentView.xaml
+    /// Interaction logic for LeftView.xaml
     /// </summary>
-    public partial class StudentView : UserControl
+    public partial class LeftView : UserControl
     {
-        public StudentView()
+        public LeftView()
         {
             InitializeComponent();
         }

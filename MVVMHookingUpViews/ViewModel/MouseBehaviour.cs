@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Xaml.Behaviors;
+using System.Numerics;
 namespace MVVMHookingUpViews.ViewModel
 {
     class MouseBehaviour: Behavior<Canvas>
@@ -29,21 +30,18 @@ namespace MVVMHookingUpViews.ViewModel
         }
         private void MouseMovePosition(object sender, MouseEventArgs e)
         {
-            //e.Handled = true;
             Canvas cv = (Canvas)sender;
-            Point pos = e.GetPosition(cv);
-            MouseX = pos.X;
-            MouseY = pos.Y;
+            Vector2 posVector = new Vector2((float)e.GetPosition(cv).X, (float)e.GetPosition(cv).Y);
+            MouseX = posVector.X;
+            MouseY = posVector.Y;
             if(e.RightButton == MouseButtonState.Pressed)
             {
-               Point B = e.GetPosition(cv);
-               cv.CaptureMouse();
+                cv.CaptureMouse();
             }
             else if(e.RightButton == MouseButtonState.Released)
             {
                 cv.ReleaseMouseCapture();
-            }
-            
+            }  
         }
         protected override void OnDetaching()
         {
