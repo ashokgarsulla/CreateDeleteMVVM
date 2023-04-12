@@ -31,17 +31,11 @@
         <Rectangle Name="square"
                 Width="100"
                 Height="100"
-                Canvas.Left="0"
-                Canvas.Top="0"
+                Canvas.Left="{Binding Path=RectX}"
+                Canvas.Top="{Binding Path=RectY}"
                 >
             
             <behaviors:Interaction.Triggers>
-                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
-                    <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseLeftButtonDownOnSquare"/>
-                </behaviors:EventTrigger>
-                <behaviors:EventTrigger EventName="MouseLeftButtonUp">
-                    <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseLeftButtonUpOnSquare"/>
-                </behaviors:EventTrigger>
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
                 </behaviors:EventTrigger>
