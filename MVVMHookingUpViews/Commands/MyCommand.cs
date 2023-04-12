@@ -36,7 +36,9 @@ namespace MVVMHookingUpViews.Commands
             }
         }
 
+#pragma warning disable CS0067 // The event 'MyICommand.CanExecuteChanged' is never used
         public event EventHandler CanExecuteChanged;
+#pragma warning restore CS0067 // The event 'MyICommand.CanExecuteChanged' is never used
         public void Execute(object parameter)
         {
             execute(parameter);

@@ -83,7 +83,7 @@ namespace MVVMHookingUpViews.ViewModel
             }
         }
 
-        private double scale = 50;
+        private double scale = 1;
         public double Scale
         {
             get
@@ -93,10 +93,6 @@ namespace MVVMHookingUpViews.ViewModel
             set
             {
                 scale = value;
-                if(value < 10)
-                {
-                    scale = 10;
-                }
                 OnPropertyChange("Scale");
             }
         }
@@ -113,7 +109,7 @@ namespace MVVMHookingUpViews.ViewModel
                 OnPropertyChange("Angle");
             }
         }
-        private double centerOfSquareX;
+        private double centerOfSquareX = 100 / 2;
         public double CenterOfSquareX
         {
             get
@@ -126,7 +122,7 @@ namespace MVVMHookingUpViews.ViewModel
                 OnPropertyChange("CenterOfSquareX");
             }
         }
-        private double centerOfSquareY;
+        private double centerOfSquareY = 100 / 2;
         public double CenterOfSquareY
         {
             get
@@ -139,21 +135,42 @@ namespace MVVMHookingUpViews.ViewModel
                 OnPropertyChange("CenterOfSquareY");
             }
         }
-
+        private double zoomInOut = 1;
+        public double ZoomInOut
+        {
+            get
+            {
+                return zoomInOut;
+            }
+            set
+            {
+                zoomInOut = value;
+                OnPropertyChange("ZoomInOut");
+            }
+        }
         public void ZoomInOutByWheel(object sender, MouseWheelEventArgs e)
         {
-            
-            if (e.Delta > 0 && Scale < 200)
+
+            if (e.Delta > 0 && Scale < 2)
             {
-                Scale += 10;
+                //Scale += 10;
+                Scale += 0.1;
+                Console.WriteLine(Scale);
+                Console.WriteLine("Zoom : Left " + RectX);
             }
 
             if (e.Delta < 0)
             {
-                Scale -= 10;
-                if (Scale < 10)
+                //Scale -= 10;
+                //if (Scale < 10)
+                //{
+                //    Scale = 10;
+                //}
+                
+                if (Scale > 0.5)
                 {
-                    Scale = 10;
+                    Scale -= 0.1;
+                    Console.WriteLine(Scale);
                 }
             }
         }
@@ -162,30 +179,36 @@ namespace MVVMHookingUpViews.ViewModel
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                bool isHMovable = X - Scale / 2 > 0 && X + Scale / 2 < 960;
-                bool isVMovable = Y + Scale / 2 < 1055 && Y - Scale / 2 > 0;
+                bool isHMovable = X - (100 * Scale / 2) > 0 && X + (100 * Scale / 2) < 960;
+                bool isVMovable = Y + (100 * Scale / 2) < 1055 && Y - (100 * Scale / 2) > 0;
 
+                //CenterOfSquareX = X - 100 * Scale / 2;
+                //CenterOfSquareY = Y - 100 * Scale / 2;
                 if (isHMovable && isVMovable)
                 {
-                    RectX = X - Scale / 2;
-                    RectY = Y - Scale / 2;
+                    RectX = X - 100 * Scale / 2;
+                    RectY = Y - 100 * Scale / 2;
                 }
                 if (!isHMovable)
                 {
                     if(isVMovable)
                     {
-                        RectY = Y - Scale / 2;
+                        RectY = Y - (100 * Scale / 2);
                     }
                 }
                 if (!isVMovable)
                 {
                     if (isHMovable)
                     {
-                        RectX = X - Scale / 2;
+                        RectX = X - (100 * Scale / 2);
                     }
                 }
+                Console.WriteLine("Rect: "+ RectX + " " + RectY);
+                Console.WriteLine("Mouse: " + X + " " + Y);
+                Console.WriteLine("Scale: " + CenterOfSquareX + CenterOfSquareY);
             }
         }
+        
         public void RotateSquare(object sender, MouseEventArgs e)
         {
             Vector2 currentPosition = new Vector2((float)X,(float)Y);
@@ -201,9 +224,16 @@ namespace MVVMHookingUpViews.ViewModel
                 currentPosition.X = (float)X;
                 currentPosition.Y = (float)Y;
                 angleForSquareRotation = 1.5 * Vector2.Dot(mouseVector, Vector2.UnitY);
-                CenterOfSquareX = Scale / 2;
-                CenterOfSquareY = Scale / 2;
+                //CenterOfSquareX = 100 * Scale / 2;
+                //CenterOfSquareY = 100 * Scale / 2;
                 Angle = angleForSquareRotation;
+                Vector2 squareTopLeftCorner = new Vector2((float)(Scale /2 *(-Math.Cos(Angle) - Math.Sin(Angle))), (float)(Scale / 2 * (Math.Sin(Angle) + Math.Sin(Angle))));
+                Vector2 OuterToInnnerOrigin = new Vector2((float)CenterOfSquareY, (float)CenterOfSquareY);
+                //RectX = (squareTopLeftCorner + OuterToInnnerOrigin).X;
+                //RectY = (squareTopLeftCorner + OuterToInnnerOrigin).Y;
+                Console.WriteLine("During Rotation : Left , Top" + RectX +" "+ RectY);
+                Console.WriteLine("During Rotation Cx,Cy" + CenterOfSquareX + "," + CenterOfSquareY);
+
             }
             else
             {

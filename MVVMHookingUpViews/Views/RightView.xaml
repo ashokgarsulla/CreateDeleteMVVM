@@ -12,8 +12,8 @@
     <UserControl.DataContext>
         <viewModel:RightViewModel/>
     </UserControl.DataContext>
-    
-    <Canvas Name="canvas"  Background="#F2F2F2">
+
+    <Canvas Name="canvas"  Background="#F2F2F2" Focusable="True" ClipToBounds="True" >
         <behaviors:Interaction.Triggers>
             <behaviors:EventTrigger EventName="MouseMove">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="RotateSquare"/>
@@ -28,21 +28,25 @@
             <viewModel:MouseBehaviour MouseX="{Binding X, Mode=OneWayToSource}" MouseY="{Binding Y, Mode=OneWayToSource}" />
         </behaviors:Interaction.Behaviors>
 
-        <Rectangle Name="square" 
-                Width="{Binding Path=Scale,Mode=TwoWay}"
-                Height="{Binding Path=Scale,Mode=TwoWay}"
+        <Rectangle Name="square"
+                Width="100"
+                Height="100"
                 Canvas.Left="{Binding Path=RectX, Mode=TwoWay}"
                 Canvas.Top="{Binding Path=RectY, Mode=TwoWay}"
                 >
+            
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
 
-            <Rectangle.LayoutTransform>
-                <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
-            </Rectangle.LayoutTransform>
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}" ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}"/>
+                    <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
             
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
