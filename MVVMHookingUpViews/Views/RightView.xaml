@@ -31,8 +31,8 @@
         <Rectangle Name="square"
                 Width="100"
                 Height="100"
-                Canvas.Left="{Binding Path=RectX, Mode=TwoWay}"
-                Canvas.Top="{Binding Path=RectY, Mode=TwoWay}"
+                Canvas.Left="0"
+                Canvas.Top="0"
                 >
             
             <behaviors:Interaction.Triggers>
@@ -51,7 +51,6 @@
                 <TransformGroup>
                     <ScaleTransform CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}" ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}"/>
                     <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
-                    <TranslateTransform />
                 </TransformGroup>
             </Rectangle.RenderTransform>
             

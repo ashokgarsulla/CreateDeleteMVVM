@@ -57,7 +57,7 @@ namespace MVVMHookingUpViews.ViewModel
             }
         }
 
-        private double rectX = 100;
+        private double rectX;
         public double RectX
         {
             get
@@ -71,7 +71,7 @@ namespace MVVMHookingUpViews.ViewModel
             }
         }
 
-        private double rectY = 100;
+        private double rectY;
         public double RectY
         {
             get
@@ -165,16 +165,18 @@ namespace MVVMHookingUpViews.ViewModel
                 }
             }
         }
-        public void MouseLeftButtonDownOnSquare(object sender, MouseEventArgs e)
+        public void MouseLeftButtonDownOnSquare(object sender, MouseButtonEventArgs e)
         {
             Rectangle square = sender as Rectangle;
             SquareOrigin = square.RenderTransform as TranslateTransform ?? new TranslateTransform();
             isDragle = true;
             clickedPosition.X = (float)X;
             clickedPosition.Y = (float)Y;
+            Console.WriteLine(clickedPosition);
             square.CaptureMouse();
+            Console.WriteLine("Transform "+SquareOrigin.X+","+SquareOrigin.Y);
         }
-        public void MouseLeftButtonUpOnSquare(object sender, MouseEventArgs e)
+        public void MouseLeftButtonUpOnSquare(object sender, MouseButtonEventArgs e)
         {
             isDragle = false;
             Rectangle square = sender as Rectangle;
@@ -183,7 +185,7 @@ namespace MVVMHookingUpViews.ViewModel
         }
         public void MoveSquareWithMouse(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed)
             {
                 bool isHMovable = X - (100 * Scale / 2) > 0 && X + (100 * Scale / 2) < 960;
                 bool isVMovable = Y + (100 * Scale / 2) < 1055 && Y - (100 * Scale / 2) > 0;
@@ -206,6 +208,16 @@ namespace MVVMHookingUpViews.ViewModel
                         RectX = X - (100 * Scale / 2);
                     }
                 }
+            }
+            Rectangle square = sender as Rectangle;
+            if(isDragle && square != null)
+            {
+                Vector2 currentPosition = new Vector2((float)X, (float)Y);
+                var transform = square.RenderTransform as TranslateTransform ?? new TranslateTransform();
+                transform.X = SquareOrigin.X+(currentPosition.X - clickedPosition.X);
+                transform.Y = SquareOrigin.Y+(currentPosition.X - clickedPosition.X);
+                Console.WriteLine("current"+currentPosition);
+                square.RenderTransform = new TranslateTransform(transform.X, transform.Y);
             }
         }
         
