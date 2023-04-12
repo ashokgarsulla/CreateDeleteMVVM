@@ -36,6 +36,12 @@
                 >
             
             <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                    <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseLeftButtonDownOnSquare"/>
+                </behaviors:EventTrigger>
+                <behaviors:EventTrigger EventName="MouseLeftButtonUp">
+                    <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseLeftButtonUpOnSquare"/>
+                </behaviors:EventTrigger>
                 <behaviors:EventTrigger EventName="MouseMove">
                     <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
                 </behaviors:EventTrigger>
