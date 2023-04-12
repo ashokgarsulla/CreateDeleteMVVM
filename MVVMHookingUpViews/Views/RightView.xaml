@@ -13,7 +13,7 @@
         <viewModel:RightViewModel/>
     </UserControl.DataContext>
 
-    <Canvas Name="canvas"  Background="#F2F2F2" Focusable="True" ClipToBounds="True" >
+    <Canvas Name="canvas"  Background="#F2F2F2" Focusable="False" ClipToBounds="True" >
         <behaviors:Interaction.Triggers>
             <behaviors:EventTrigger EventName="MouseMove">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="RotateSquare"/>
@@ -45,6 +45,7 @@
                 <TransformGroup>
                     <ScaleTransform CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}" ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}"/>
                     <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
+                    <TranslateTransform />
                 </TransformGroup>
             </Rectangle.RenderTransform>
             
