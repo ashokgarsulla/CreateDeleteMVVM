@@ -5,7 +5,7 @@ using Microsoft.Xaml.Behaviors;
 using System.Numerics;
 namespace MVVMHookingUpViews.ViewModel
 {
-    class MouseBehaviour: Behavior<Canvas>
+    class MouseBehaviour : Behavior<Canvas>
     {
         public static readonly DependencyProperty MouseYProperty = DependencyProperty.Register(
            "MouseY", typeof(double), typeof(MouseBehaviour), new PropertyMetadata(default(double)));
@@ -34,14 +34,14 @@ namespace MVVMHookingUpViews.ViewModel
             Vector2 posVector = new Vector2((float)e.GetPosition(cv).X, (float)e.GetPosition(cv).Y);
             MouseX = posVector.X;
             MouseY = posVector.Y;
-            if(e.RightButton == MouseButtonState.Pressed)
+            if (e.RightButton == MouseButtonState.Pressed)
             {
                 cv.CaptureMouse();
             }
-            else if(e.RightButton == MouseButtonState.Released)
+            else if (e.RightButton == MouseButtonState.Released)
             {
                 cv.ReleaseMouseCapture();
-            }  
+            }
         }
         protected override void OnDetaching()
         {

@@ -17,6 +17,28 @@ using System.Numerics;
 
 namespace MVVMHookingUpViews.ViewModel
 {
+    public class Matrix2X2
+    {
+        private readonly double M00;
+        private readonly double M01;
+        private readonly double M10;
+        private readonly double M11;
+        public Matrix2X2(double m00, double m01, double m10, double m11)
+        {
+            M00 = m00;
+            M01 = m01;
+            M10 = m10;
+            M11 = m11;
+        }
+        public static Vector2 operator *(Matrix2X2 m, Vector2 v)
+        {
+            Vector2 vector2;
+            vector2.X = (float)((m.M00 * v.X) + (m.M01 * v.Y));
+            vector2.Y = (float)((m.M10 * v.X) + (m.M11 * v.Y));
+            return vector2;
+        }
+
+    }
     public class RightViewModel : INotifyPropertyChanged
     {
         private int mouseClickedCount = 0;
@@ -163,7 +185,7 @@ namespace MVVMHookingUpViews.ViewModel
                 }
                 if (!isHMovable)
                 {
-                    if(isVMovable)
+                    if (isVMovable)
                     {
                         RectY = Y - (100 * Scale / 2);
                     }
@@ -177,13 +199,20 @@ namespace MVVMHookingUpViews.ViewModel
                 }
             }
         }
-        
+
         public void RotateSquare(object sender, MouseEventArgs e)
         {
-            Vector2 currentPosition = new Vector2((float)X,(float)Y);
+            Vector2 currentPosition = new Vector2((float)X, (float)Y);
             if (e.RightButton == MouseButtonState.Pressed)
             {
-                if(mouseClickedCount == 0)
+                double angleInRadian;
+                Vector2 squareCorner;
+                Vector2 OriginOfSquare = new Vector2((float)CenterOfSquareX, (float)CenterOfSquareY);
+                double m00;
+                double m01;
+                double m10;
+                double m11;
+                if (mouseClickedCount == 0)
                 {
                     clickedPosition.X = (float)X;
                     clickedPosition.Y = (float)Y;
@@ -193,7 +222,22 @@ namespace MVVMHookingUpViews.ViewModel
                 currentPosition.X = (float)X;
                 currentPosition.Y = (float)Y;
                 angleForSquareRotation = 1.5 * Vector2.Dot(mouseVector, Vector2.UnitY);
+                Console.WriteLine("Angle" + angleForSquareRotation);
+                Console.WriteLine("OriginOfSquare:" + OriginOfSquare);
                 Angle = angleForSquareRotation;
+                angleInRadian = Angle * Math.PI / 180;
+                m00 = Math.Cos(angleInRadian);
+                m01 = -Math.Sin(angleInRadian);
+                m10 = Math.Sin(angleInRadian);
+                m11 = Math.Cos(angleInRadian);
+                Matrix2X2 m2x2 = new Matrix2X2(m00, m01, m10, m11);
+                Vector2 vector = new Vector2((float)(-100 * Scale / 2), (float)(100 * Scale / 2));
+                squareCorner = (m2x2 * vector) + OriginOfSquare;
+                Console.WriteLine(squareCorner);
+                RectX = squareCorner.X;
+                RectY = squareCorner.Y;
+                Console.WriteLine(CenterOfSquareX);
+                Console.WriteLine(CenterOfSquareY);
             }
             else
             {
@@ -201,6 +245,7 @@ namespace MVVMHookingUpViews.ViewModel
                 currentPosition.Y = (float)Y;
                 mouseClickedCount = 0;
             }
+            Console.WriteLine("Mouse:" + X + "," + Y);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChange(string property)
