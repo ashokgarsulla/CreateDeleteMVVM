@@ -13,14 +13,29 @@
         <viewModel:RightViewModel/>
     </UserControl.DataContext>
 
-    <Canvas Name="canvas"  Background="#F2F2F2" Focusable="False" ClipToBounds="True" >
+    <Canvas Name="canvas"  Background="#F2F2F2" ClipToBounds="True">
         <behaviors:Interaction.Triggers>
-            <behaviors:EventTrigger EventName="MouseMove">
+            <!--<behaviors:EventTrigger EventName="MouseMove">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="RotateSquare"/>
-            </behaviors:EventTrigger>
+            </behaviors:EventTrigger>-->
 
             <behaviors:EventTrigger EventName="MouseWheel">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="ZoomInOutByWheel"/>
+            </behaviors:EventTrigger>
+            <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseLeftButtonDownSquare"/>
+            </behaviors:EventTrigger>
+            <behaviors:EventTrigger EventName="MouseLeftButtonUp">
+                <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseLeftButtonUpSquare"/>
+            </behaviors:EventTrigger>
+            <behaviors:EventTrigger EventName="MouseRightButtonDown">
+                <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseRightButtonDownSquare"/>
+            </behaviors:EventTrigger>
+            <behaviors:EventTrigger EventName="MouseRightButtonUp">
+                <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MouseRightButtonUpSquare"/>
+            </behaviors:EventTrigger>
+            <behaviors:EventTrigger EventName="MouseMove">
+                <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
             </behaviors:EventTrigger>
         </behaviors:Interaction.Triggers>
 
@@ -29,22 +44,14 @@
         </behaviors:Interaction.Behaviors>
 
         <Rectangle Name="square"
-                Width="100"
-                Height="100"
+                Width="{Binding Side}"
+                Height="{Binding Side}"
                 Canvas.Left="{Binding Path=RectX}"
-                Canvas.Top="{Binding Path=RectY}"
-                >
-            
-            <behaviors:Interaction.Triggers>
-                <behaviors:EventTrigger EventName="MouseMove">
-                    <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="MoveSquareWithMouse"/>
-                </behaviors:EventTrigger>
-            </behaviors:Interaction.Triggers>
-
+                Canvas.Top="{Binding Path=RectY}">
             <Rectangle.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}" ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}"/>
-                    <RotateTransform Angle="{Binding Path=Angle}" CenterX="{Binding Path=CenterOfSquareX}" CenterY="{Binding Path=CenterOfSquareY}"/>
+                    <RotateTransform Angle="{Binding Path=Angle}"/>
+                    <ScaleTransform ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}"/>
                 </TransformGroup>
             </Rectangle.RenderTransform>
             
@@ -57,5 +64,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
+        <Line X1="{Binding AX}" Y1="{Binding AY}"
+              X2="{Binding SX}" Y2="{Binding SY}" StrokeThickness="5" Stroke="Black"/>
     </Canvas>
 </UserControl>
