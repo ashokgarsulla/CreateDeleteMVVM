@@ -15,10 +15,6 @@
 
     <Canvas Name="canvas"  Background="#F2F2F2" ClipToBounds="True">
         <behaviors:Interaction.Triggers>
-            <!--<behaviors:EventTrigger EventName="MouseMove">
-                <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="RotateSquare"/>
-            </behaviors:EventTrigger>-->
-
             <behaviors:EventTrigger EventName="MouseWheel">
                 <behaviors:CallMethodAction TargetObject="{Binding}" MethodName="ZoomInOutByWheel"/>
             </behaviors:EventTrigger>
@@ -64,7 +60,5 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Line X1="{Binding AX}" Y1="{Binding AY}"
-              X2="{Binding SX}" Y2="{Binding SY}" StrokeThickness="5" Stroke="Black"/>
     </Canvas>
 </UserControl>
